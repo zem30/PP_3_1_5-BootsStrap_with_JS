@@ -9,6 +9,8 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -19,23 +21,22 @@ public class AdminController {
         this.userService = userService;
     }
 
-    //домашняя страница с информацией о пользователе
-    @GetMapping()
-    public String showInfoAllUser(Model model) {
-        model.addAttribute("allUser", userService.showUsers());
-        return "admin/allUser";
+
+    @GetMapping("/adminview")
+    public String showInfoAllUser(Model model, Principal principal) {
+        model.addAttribute("user",userService.getUserByEmail(principal.getName()));
+        return "adminview";
     }
 
 
-    @GetMapping("/create")
-    public String newUser(Model model) {
-        User user = new User();
-        model.addAttribute("user",user);
-        model.addAttribute("listRoles",userService.listRoles());
-        return "admin/new-user";
+    @GetMapping("/new")
+    public String newUser(Model model, @ModelAttribute("user") User user, Principal principal) {
+        model.addAttribute("admin", userService.getUserByEmail(principal.getName()));
+        model.addAttribute("listRoles", userService.listRoles());
+        return "new";
     }
 
-    @PostMapping("/create")
+    @PostMapping()
     public String saveUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/admin";
@@ -45,10 +46,11 @@ public class AdminController {
     public String updateUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         model.addAttribute("listRoles", userService.listRoles());
-        return "admin/update";
+        return "redirect:/admin";
     }
     @PatchMapping("/update/{id}")
-    public String saveUpdateUser(@ModelAttribute("user") User user) {
+    public String saveUpdateUser(@ModelAttribute("user") User user,Model model) {
+        model.addAttribute("listRoles", userService.listRoles());
         userService.update(user);
         return "redirect:/admin";
     }

@@ -17,7 +17,7 @@ public interface UserService extends UserDetailsService {
 
     public void update(User user);
 
-    public User findByUsername(String username);
+    public User getUserByEmail(String email);
 
     public List<Role> listRoles();
 }

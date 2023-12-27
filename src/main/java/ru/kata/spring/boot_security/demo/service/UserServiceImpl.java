@@ -17,9 +17,8 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    //public class UserServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
-    private RoleRepository roleRepository;//добавила
+    private RoleRepository roleRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
@@ -29,10 +28,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.getUserByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
         return user;
     }
@@ -73,8 +72,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User getUserByEmail(String email) {
+        return userRepository.getUserByEmail(email);
     }
 
     @Override

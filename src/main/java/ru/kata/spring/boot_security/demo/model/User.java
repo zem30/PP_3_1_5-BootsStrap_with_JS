@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,13 +14,19 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
+
+    @Column(name = "age")
+    private int age;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @ManyToMany
@@ -33,23 +38,29 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(int id, String username, String password, String email, Set<Role> roles) {
+    public User(int id, String firstName, String lastName, int age, String password, String email, Set<Role> roles) {
         this.id = id;
-        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age=age;
         this.password = password;
         this.email = email;
         this.roles = roles;
     }
 
-    public User(String username, String password, String email, Set<Role> roles) {
-        this.username = username;
+    public User(String firstName, String lastName, int age, String password, String email, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age=age;
         this.password = password;
         this.email = email;
         this.roles = roles;
     }
 
-    public User(String username, String password, String email) {
-        this.username = username;
+    public User(String firstName, String lastName, int age, String password, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age=age;
         this.password = password;
         this.email = email;
     }
@@ -62,8 +73,9 @@ public class User implements UserDetails {
         this.id = id;
     }
 
+    @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -86,8 +98,12 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     @Override
@@ -119,5 +135,20 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
 }
