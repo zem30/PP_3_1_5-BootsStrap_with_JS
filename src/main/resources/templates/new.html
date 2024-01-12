@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin panel</title>
+    <link href="https://www.bridgetech.co.id/storage/2021/02/spring-logo.png" rel="icon"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
           crossorigin="anonymous">
@@ -74,20 +75,22 @@
                                 <label class="container-fluid col-6"
                                        for="UserRoles">
                                     <strong>Role</strong>
-                                    <select id="UserRoles"
-                                            class="form-select"
-                                            name="roles"
-                                            multiple size="2">
-                                        <option th:each="role: ${listRoles}"
-                                                th:value="${role.getId()}">
-                                            <th:block
-                                                    th:text="${role.getRole().substring(5)}">
-                                            </th:block>
-                                        </option>
-                                    </select>
                                 </label>
                                 <br>
-                                <button th:type="submit" class="btn btn-success" value="Add User">Add new User</button>
+                                <select multiple size="2"
+                                        class="custom-select"
+                                        id="UserRoles"
+                                        name="roles"
+                                        required>
+                                    <option th:each="role : ${listRoles}"
+                                            th:value="${role.getId()}"
+                                            th:text="${role.getRole().substring(5)}">
+                                    </option>
+                                </select>
+                                <br>
+                                <div style="text-align:center">
+                                    <button th:type="submit" class="btn btn-success" value="Add User">Add new User</button>
+                                </div>
                             </form>
                         </div>
                     </div>

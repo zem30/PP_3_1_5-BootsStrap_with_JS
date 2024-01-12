@@ -13,7 +13,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.security.Principal;
 
 @Controller
-//@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
@@ -26,11 +25,5 @@ public class UserController {
         model.addAttribute("user", userService.getUserByEmail(principal.getName()));
         return "user";
     }
-    @GetMapping( "/admin")
-    public String printAdminPage(Principal principal, ModelMap model) {
-        model.addAttribute("admin", userService.getUserByEmail(principal.getName()));
-        model.addAttribute("users", userService.showUsers());
-        model.addAttribute("listRoles", userService.listRoles());
-        return "admin";
-    }
+
 }

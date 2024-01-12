@@ -1,8 +1,6 @@
-login: user
+login: user@yandex.ru
 password: user
 
-login: admin
+login: admin@yandex.ru
 password: admin
 
-login: mama
-password: mama
