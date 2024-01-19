@@ -1,99 +1,75 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-    <title>User page</title>
-    <!--иконка-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link href="https://www.bridgetech.co.id/storage/2021/02/spring-logo.png" rel="icon"/>
-
-
-    <!--Просто кэшированная версия скомпилированного в Bootstrap файлов CSS без JS(пока что)-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
+    <title>User Page</title>
 </head>
-<body>
-<!--верхняя панель-->
-<nav class="navbar navbar-dark  bg-dark shadow-sm">
-    <div class="container-fluid">
-        <p class="navbar-brand text-white">
-            <b><span th:text="${user.username}"></span></b> with roles:
-            <span th:each="role : ${user.getRoles()}"
-                  th:text="${role.getRole().substring(5)}"></span>
-        </p>
-        <form th:action="@{/logout}" method="POST">
-            <button type="submit" class="btn btn-dark text-secondary">Logout</button>
-        </form>
-    </div>
+<body class="bg-light">
+<!--------------Верхняя панель для logout---------------->
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <strong><span id="header_email"></span></strong><span id="header_roles"></span>
+    </a>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+        </li>
+    </ul>
 </nav>
-<!--верхняя панель-->
-
-<!-------------Начало боковлй панели User/Admin---------------->
+<!---------------Конец верхней панели---------------->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-2 px-0">
-            <br>
-            <ul class="nav nav-pills flex-column">
-                <div sec:authorize="hasRole('ADMIN')">
-                    <li class="nav-item">
-                        <a href="/admin" class="nav-link">Admin</a>
+    <!-------------Начало боковлй панели User/Admin---------------->
+    <div class="row vh-100">
+        <div class="col mt-3 pl-0 bg-white">
+            <nav class="nav nav-pills flex-column">
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="active">
+                        <a class="nav-link" href="/admin">Admin</a>
                     </li>
                 </div>
-                <li class="nav-item">
-                    <a href="/user" class="nav-link active">User</a>
+                <li class="active">
+                    <a class="nav-link active" href="/user">User</a>
                 </li>
-            </ul>
+            </nav>
         </div>
-        <div class="container-fluid col-10 px-0">
-            <div class="col-12 bg-light vh-100">
-                <br>
-                <h1>User information-page</h1>
-                <br>
-                <div class="card">
-                    <div><h5 class="card-header"><!-- Начало текстового контента -->
-                        About user</h5>
-                    </div><!-- Конец текстового контента -->
-                    <br>
-                    <!-- Начало таблицы -->
-                    <div class="container-fluid">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Age</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td th:text="${user.getId()}"></td>
-                                <td th:text="${user.getUsername()}"></td>
-                                <td th:text="${user.getLastName()}"></td>
-                                <td th:text="${user.getAge()}"></td>
-                                <td th:text="${user.getEmail()}"></td>
-                                <td>
-                                    <th:block th:each="role : ${user.getRoles()}">
-                                        <p th:text="${role.getRole().substring(5)}">Role</p>
-                                    </th:block>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- Конец таблицы -->
+
+        <div class="col-10 bg-light">
+            <div><h3>Users information-page</h3></div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                    <div><h5 class="card-header">About User</h5></div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody id="userInfo"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+
+
+<script src="/header.js"></script>
+<script src="/allRoles.js"></script>
+<script src="/userInfo.js"></script>
 </body>
 </html>

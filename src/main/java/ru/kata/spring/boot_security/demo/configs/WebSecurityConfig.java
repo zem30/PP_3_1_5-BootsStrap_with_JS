@@ -31,6 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf()
+                .disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
@@ -43,52 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
     }
-
-    // аутентификация inMemory, работает
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("kate")
-//                        .password("kate")
-//                        .roles("ADMIN")
-//                        .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
-
-    // работает
-//    @Bean
-//    public JdbcUserDetailsManager user(DataSource dataSource) {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("kate")
-//                        .password("kate")
-//                        .roles("ADMIN")
-//                        .build();
-//        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-//        if(userDetailsManager.userExists(user.getUsername())){
-//            userDetailsManager.deleteUser(user.getUsername());
-//        }
-//        if(userDetailsManager.userExists(admin.getUsername())){
-//            userDetailsManager.deleteUser(admin.getUsername());
-//        }
-//        userDetailsManager.createUser(user);
-//        userDetailsManager.createUser(admin);
-//        return userDetailsManager;
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
