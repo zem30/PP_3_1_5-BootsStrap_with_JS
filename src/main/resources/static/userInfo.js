@@ -7,7 +7,8 @@ function userInfo(user) {
         .then(user => {
             //по id получаем юзера и заполняем таблицу
             let tBody = document.getElementById("userInfo");
-            console.log(tBody)
+            tBody.innerHTML = "";
+            // console.log(tBody)
             //добавляем строку в таблицу <tr> и возвращаем ее индекс
             var row = tBody.insertRow(0);
             //добавляем ячейку <td> в строке таблицы <tr>
@@ -21,7 +22,7 @@ function userInfo(user) {
             cell3.innerHTML = user.age;
             var cell4 = row.insertCell(4);
             cell4.innerHTML = user.email;
-            var cell5 = row.insertCell(5);
+            var cell5 = row.insertCell();
             cell5.innerHTML = allRoles(user).textContent;
         });
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
@@ -50,21 +50,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(int id) {
-        return userRepository.getById(id);
+    public User getUser(Long id) {
+        return userRepository.findById(id).get();
     }
+
 
     @Override
     @Transactional
-    public void delete(int id) {
+    public void delete(Long id) {
         userRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public void update(User user) {
-        user.setRoles(user.getRoles());
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        userRepository.save(user);
+        if (user.getPassword().equals("") || user.getPassword().equals(
+                userRepository.getById(user.getId()).getPassword())) {
+            user.setPassword(userRepository.getById(user.getId()).getPassword());
+        } else {
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        }
         userRepository.save(user);
     }
 

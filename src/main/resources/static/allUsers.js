@@ -21,11 +21,12 @@ function allUsers() {
                 cell4.innerHTML = user.email;
                 var cell5 = row.insertCell();
                 cell5.innerHTML = allRoles(user).textContent;
+
+                var cell5 = row.insertCell();
+                cell5.innerHTML =
+                    '<button type="button" onclick="modalEdit(' + user.id + ')" class="btn btn-info">Edit</button>';
                 var cell6 = row.insertCell();
                 cell6.innerHTML =
-                    '<button type="button" onclick="modalEdit(' + user.id + ')" class="btn btn-info">Edit</button>';
-                var cell7 = row.insertCell();
-                cell7.innerHTML =
                     '<button type="button" onclick="modalDelete(' + user.id + ')" class="btn btn-danger">Delete</button>';
             })
         });

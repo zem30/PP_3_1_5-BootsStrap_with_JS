@@ -1,14 +1,14 @@
-Header();
+header();
 //запрос на получение данных в виде json
-function Header() {
+function header() {
     fetch('http://localhost:8080/getAuthorizedUser')
         .then(response => response.json())
         .then(user => {
             //ищем по id email юзера и записываем в header_email в виде строки (.innerHTML)
             document.getElementById("header_email").innerHTML = user.email;
             //удобнее выводить в консоль получаемые значения для понимания запросов
-            console.log(user)
-            console.log(user.email)
+            // console.log(user)
+            // console.log(user.email)
             //создаем новый элемент маркированного списка(ul) в который позже вставляются элементы списка (li)
             let rolesList = document.createElement('ul');
             for (let i = 0; i < user.roles.length; i++) {

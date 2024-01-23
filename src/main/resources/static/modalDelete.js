@@ -62,8 +62,8 @@ function modalDelete(id) {
                 '                    <p>' +
                 '                        <label>Role</label>' +
                 '                        <select class="form-control form-control-sm" multiple size="2" readonly>' +
-                '                            <option value="ROLE_ADMIN"' + adminSelect + ' >ROLE_ADMIN</option>' +
-                '                            <option value="ROLE_USER"' + userSelect + '>ROLE_USER</option>' +
+                '                            <option value="ADMIN"' + adminSelect + ' >ADMIN</option>' +
+                '                            <option value="USER"' + userSelect + '>USER</option>' +
                 '                        </select>' +
                 '                    </p>' +
                 '                </form>' +

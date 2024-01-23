@@ -1,55 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <link href="https://www.bridgetech.co.id/storage/2021/02/spring-logo.png" rel="icon"/>
-    <title>User Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin panel</title>
+    <link rel="icon" type="image/png" href="https://e7.pngegg.com/pngimages/6/979/png-clipart-spring-framework-computer-icons-spring-web-flow-java-advancement-leaf-logo.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 </head>
-<body class="bg-light">
-<!--------------Верхняя панель для logout---------------->
-<nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-        <strong><span id="header_email"></span></strong><span id="header_roles"></span>
-    </a>
-    <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
-        </li>
-    </ul>
-</nav>
-<!---------------Конец верхней панели---------------->
-<div class="container-fluid">
-    <!-------------Начало боковлй панели User/Admin---------------->
-    <div class="row vh-100">
-        <div class="col mt-3 pl-0 bg-white">
-            <nav class="nav nav-pills flex-column">
-                <div sec:authorize="hasRole('ROLE_ADMIN')">
-                    <li class="active">
-                        <a class="nav-link" href="/admin">Admin</a>
-                    </li>
-                </div>
-                <li class="active">
-                    <a class="nav-link active" href="/user">User</a>
-                </li>
-            </nav>
+<body>
+<div id="header" class="d-flex bg-dark">
+    <div id="header_email" class="p-2 text-white font-weight-bold"></div>
+    <div id="header_roles" class="p-2 w-100 text-white"></div>
+    <a class="p-2 text-secondary text-right text-decoration-none" th:href="@{/logout}"> Logout </a>
+</div>
+<div class="row">
+    <div class="col-2 mt-3 p-0">
+        <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+            <a class="nav-item nav-link active ml-2" data-toggle="pill" href="#user_panel" role="tab" aria-controls="user_panel" aria-selected="true">User</a>
         </div>
-
-        <div class="col-10 bg-light">
-            <div><h3>Users information-page</h3></div>
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
-                    <div><h5 class="card-header">About User</h5></div>
-                    <table class="table table-striped">
+    </div>
+    <div class="col-10 p-0">
+        <div class="tab-content bg-light p-2">
+            <div class="tab-pane fade show active pl-3" style="height: 700px;" id="user_panel"
+                 role="tabpanel" aria-labelledby="user_panel">
+                <h1>User information-page</h1>
+                <div class="pl-3 pt-1 d-flex border-top border-left border-right"><h4> About user</h4></div>
+                <div class="bg-white border p-3">
+                    <table class="table table-striped border-top">
                         <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Age</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
+                            <th>ID</th>
+                            <th>First name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
                         </tr>
                         </thead>
                         <tbody id="userInfo"></tbody>
@@ -60,16 +46,10 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 
-
-<script src="/header.js"></script>
 <script src="/allRoles.js"></script>
+<script src="/header.js"></script>
 <script src="/userInfo.js"></script>
 </body>
 </html>

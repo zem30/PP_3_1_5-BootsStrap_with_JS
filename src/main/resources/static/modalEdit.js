@@ -44,13 +44,13 @@ function modalEdit(id) {
                 '                        <input class="form-control form-control-sm" type="text"' +
                 '                               id="editFirstName" value="' + user.firstName + '"' +
                 '                               placeholder="First name" required>' +
-                '                    </p>' +
+                '                    </p>'+
                 '                    <p>' +
                 '                        <label>Last name</label>' +
                 '                        <input class="form-control form-control-sm" type="text"' +
-                '                               id="editLastName" value="' + user.lastName + '" ' +
+                '                               id="editLastName" value="' + user.lastName + '"' +
                 '                               placeholder="Last name" required>' +
-                '                    </p>' +
+                '                    </p>'+
                 '                    <p>' +
                 '                        <label>Age</label>' +
                 '                        <input class="form-control form-control-sm" type="number"' +
@@ -59,21 +59,21 @@ function modalEdit(id) {
                 '                    </p>' +
                 '                    <p>' +
                 '                        <label>Email</label>' +
-                '                        <input class="form-control form-control-sm" type="text"' +
+                '                        <input class="form-control form-control-sm" type="email"' +
                 '                               id="editEmail" value="' + user.email + '"' +
                 '                               placeholder="Email" required>' +
                 '                    </p>' +
                 '                    <p>' +
                 '                        <label>Password</label>' +
                 '                        <input class="form-control form-control-sm" type="password"' +
-                '                               id="editPassword" placeholder="Password">' +
+                '                               id="editPassword" value="' + user.password + '" placeholder="Password">' +
                 '                    </p>' +
                 '                    <p>' +
                 '                        <label>Role</label>' +
                 '                        <select id="editRoles" name="roles" multiple size="2" required ' +
                 '                               class="form-control form-control-sm">' +
-                '                            <option value="ROLE_ADMIN"' + adminSelect + '>ROLE_ADMIN</option>' +
-                '                            <option value="ROLE_USER"' + userSelect + '>ROLE_USER</option>' +
+                '                            <option value="1"' + userSelect + '>ROLE_USER</option>' +
+                '                            <option value="2" >ROLE_ADMIN</option>' +
                 '                        </select>' +
                 '                    </p>' +
                 '                </form>' +

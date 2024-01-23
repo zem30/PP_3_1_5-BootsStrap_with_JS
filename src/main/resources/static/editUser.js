@@ -2,18 +2,20 @@ function editUser() {
 
     let form = window.formEditUser.editRoles;
     let new_Roles = "";
-
+    var roles_Arr = [];
     let rolesList = document.createElement('ul');
-
     for (var i = 0; i < form.length; i++) {
         var option = form.options[i];
         let role = document.createElement('li');
         if (option.selected) {
-            new_Roles = new_Roles.concat(option.value + (i != (form.length - 1) ? "," : ""));
-            role.textContent = option.value + " ";
+            new_Roles = {"id": option.value, "role": option.label};
+            roles_Arr[i] = new_Roles;
+            role.textContent = option.label.substring(5) + " ";
             rolesList.appendChild(role);
         }
     }
+
+    console.log(new_Roles);
 
     let id = window.formEditUser.editID.value;
 
@@ -24,11 +26,11 @@ function editUser() {
             firstName: window.formEditUser.editFirstName.value,
             lastName: window.formEditUser.editLastName.value,
             age: window.formEditUser.editAge.value,
-            username: window.formEditUser.editEmail.value,
+            email: window.formEditUser.editEmail.value,
             password: window.formEditUser.editPassword.value,
-            roles: new_Roles
+            roles: roles_Arr
         }),
-        headers: {"Content-type": "application/json"}
+        headers: {"Content-type": "application/json; charset=UTF-8"}
     })
         .then(response => {
             $('#' + id).replaceWith('<tr id=' + id + '>' +
@@ -38,8 +40,8 @@ function editUser() {
                 '<td>' + window.formEditUser.editAge.value + '</td>' +
                 '<td>' + window.formEditUser.editEmail.value + '</td>' +
                 '<td>' + rolesList.textContent + '</td>' +
-                '<td> <button type="button" onclick="modalEdit(' + id + ')" class="btn btn-info">Edit</button> </td>' +
-                '<td> <button type="button" onclick="modalDelete(' + id + ')" class="btn btn-danger">Delete</button> </td>' +
+                '<td> <button type="button" onclick="modalEdit(' + id + ')" class="btn btn-primary btn-sm">Edit</button> </td>' +
+                '<td> <button type="button" onclick="modalDelete(' + id + ')" class="btn btn-danger btn-sm">Delete</button> </td>' +
                 '</tr>');
         });
 }

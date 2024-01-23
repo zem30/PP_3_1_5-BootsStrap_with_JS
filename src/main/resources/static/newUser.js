@@ -7,7 +7,7 @@ function newUser() {
         var option = form.options[i];
         let role = document.createElement('li');
         if (option.selected) {
-            new_Roles = {"id": option.value, "roleName": option.label};
+            new_Roles = {"id": option.value, "role": option.label};
             roles_Arr[i] = new_Roles;
             role.textContent = option.label.substring(5) + " ";
             rolesList.appendChild(role);
@@ -24,7 +24,7 @@ function newUser() {
             password: window.formNewUser.newPassword.value,
             roles: roles_Arr
         }),
-        headers: {"Content-type": "application/json"}
+        headers: {"Content-type": "application/json; charset=UTF-8"}
     })
 
         .then(response => response.json())
